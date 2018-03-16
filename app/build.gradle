@@ -1,0 +1,170 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion _compileSdkVersion
+    defaultConfig {
+        applicationId "com.hxmy.sm"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+//        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    dataBinding {
+        enabled true
+    }
+
+//    signingConfigs {
+//        nonProd {
+//            storeFile file("android.keystore")
+//            keyAlias "android"
+//            storePassword 123456
+//            keyPassword 123456
+//        }
+//        prod {
+//            storeFile file("android.keystore")
+//            keyAlias "android"
+//            storePassword 123456
+//            keyPassword 123456
+//        }
+//    }
+//
+    buildTypes {
+        debug {
+            debuggable true
+            testCoverageEnabled true
+        }
+//        release {
+//            minifyEnabled true
+//            debuggable false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+    }
+//
+//    flavorDimensions "market", "audience"
+//
+//    productFlavors {
+//        nonProd {
+//            dimension "audience"
+//            if (_isCiEnv) {
+//                signingConfig signingConfigs.nonProd
+//            }
+//        }
+//        google {
+//            dimension "market"
+//        }
+//        prod {
+//            dimension "audience"
+//            signingConfig signingConfigs.prod
+//        }
+//        amazon {
+//            dimension "market"
+//        }
+//    }
+//
+    lintOptions {
+        abortOnError false
+    }
+//
+//    sourceSets {
+//        main {
+//            java.srcDirs = ['src/main/java', 'src-gen/main/java']
+//        }
+//    }
+//
+//    dexOptions {
+//        preDexLibraries = false
+//        dexInProcess = true
+//    }
+//
+//    compileOptions {
+//        targetCompatibility = _javaSdkVersion
+//        sourceCompatibility = _javaSdkVersion
+//    }
+//
+//    def architecture = 'armeabi'
+//    if (!_isCiEnv && System.getenv("INSTRUMENT_TEST") == null) {
+//        // If a developer needs to run the app on a different architecture, then edit this line.
+//        architecture = 'x86'
+//    }
+//
+////    splits {
+////        abi {
+////            enable true
+////            reset()
+////            include architecture
+////            universalApk false
+////        }
+////    }
+//
+//    packagingOptions {
+//        exclude 'META-INF/rxjava.properties'
+//    }
+//
+//    // Rename the APK outputs to match the expected format
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.all {
+//            outputFileName = "app-${variant.baseName}.apk"
+//        }
+//    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.10.0'
+
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$_kotlin_version"
+    implementation "com.android.support:appcompat-v7:$_supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation "com.android.support:support-v13:$_supportLibraryVersion"
+    implementation "com.android.support:design:$_supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$_supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$_supportLibraryVersion"
+    implementation "com.android.support:support-annotations:$_supportLibraryVersion"
+    implementation("org.simpleframework:simple-xml:$_simpleXmlVersion") {
+        exclude module: 'stax'
+        exclude module: 'stax-api'
+        exclude module: 'xpp3'
+
+    }
+
+    // Google Dependencies
+    implementation "com.google.code.gson:gson:$_gsonVersion"
+    implementation 'com.googlecode.json-simple:json-simple:1.1'
+
+    // 3rd Party Dependencies
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
+    implementation "com.squareup.okhttp3:okhttp:$_okhttp3Version"
+    implementation "com.squareup.retrofit2:retrofit:$_retrofit2Version"
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation "io.reactivex.rxjava2:rxandroid:$_rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$_rxAndroidVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$_retrofit2Version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$_rxJavaAdapterVersion"
+
+    implementation("com.squareup.retrofit2:converter-simplexml:$_retrofit2Version") {
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+        exclude group: 'xpp3', module: 'xpp3'
+    }
+
+//    implementation "com.google.guava:guava:$_guavaVersion"
+
+    // should move all related code to design module, then remove this one
+    implementation "com.jakewharton:butterknife:$_butterKnifeLibraryVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$_butterKnifeLibraryVersion"
+
+}
