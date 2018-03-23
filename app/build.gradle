@@ -4,12 +4,14 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion _compileSdkVersion
     defaultConfig {
         applicationId "com.hxmy.sm"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 //        multiDexEnabled true
@@ -149,7 +151,7 @@ dependencies {
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
     implementation "com.squareup.okhttp3:okhttp:$_okhttp3Version"
     implementation "com.squareup.retrofit2:retrofit:$_retrofit2Version"
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+//    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation "io.reactivex.rxjava2:rxandroid:$_rxAndroidVersion"
     implementation "io.reactivex.rxjava2:rxjava:$_rxAndroidVersion"
     implementation "com.squareup.retrofit2:converter-gson:$_retrofit2Version"
@@ -166,5 +168,8 @@ dependencies {
     // should move all related code to design module, then remove this one
     implementation "com.jakewharton:butterknife:$_butterKnifeLibraryVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$_butterKnifeLibraryVersion"
+    //room persistence
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    kapt "android.arch.persistence.room:compiler:1.0.0"
 
 }

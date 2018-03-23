@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_vertical"
-              android:orientation="vertical"
-              android:paddingEnd="40dp"
-              android:paddingStart="40dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingEnd="40dp"
+    android:paddingStart="40dp"
+    android:background="@drawable/login">
 
-    <WebView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webview"></WebView>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:gravity="center_horizontal"
+        android:text="信息管理系统"
+        android:textColor="#000"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="280dp"
@@ -20,12 +25,15 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@string/username"/>
+            android:text="@string/username" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>>
+            android:layout_height="wrap_content"
+            android:hint="请输入用户名"
+            android:imeOptions="actionNext"
+            android:lines="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -37,24 +45,26 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@string/password"/>
+
+            android:text="@string/password" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:hint="请输入密码"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:lines="1" />
     </LinearLayout>
 
     <Button
         android:id="@+id/login"
-        android:layout_width="80dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="@string/login"/>
+        android:background="@color/green"
+        android:text="@string/login" />
 
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
 </LinearLayout>

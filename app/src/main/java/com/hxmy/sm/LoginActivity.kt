@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.webkit.WebChromeClient
 import android.widget.Toast
+import com.hxmy.sm.model.request.LoginRequest
 import com.hxmy.sm.network.RetrofitHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -27,9 +28,6 @@ class LoginActivity : AppCompatActivity() {
         password = edit_password.text
         login.setOnClickListener { requestLogin() }
         supportActionBar?.hide()
-        webview.settings.javaScriptEnabled = true
-        webview.webChromeClient = WebChromeClient()
-        webview.loadUrl("file:///android_asset/html/login.html")
     }
 
     override fun onDestroy() {
@@ -46,16 +44,27 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val loginService = RetrofitHelper().getLoginService()
-        mCompositeDisposable.add(loginService.login(userName!!.toString(), password!!.toString())
+        var request = LoginRequest()
+        request.userName = userName!!.toString()
+        request.password = password!!.toString()
+        mCompositeDisposable.add(loginService.login(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ t ->
-                    if (t.result) {
+                    //成功
+                    if (t.code == "100") {//101失败
                         var intent = Intent(this@LoginActivity, MainActivity::class.java);
                         startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(this@LoginActivity, "用户名, 密码错误", Toast.LENGTH_LONG).show()
                     }
-                }, { e -> Log.e("", e.message) }))
+                }, { e ->
+
+//                    var intent = Intent(this@LoginActivity, MainActivity::class.java);
+//                    startActivity(intent)
+                     Toast.makeText(this@LoginActivity, "用户名, 密码错误", Toast.LENGTH_LONG).show()
+
+                }))
     }
 }

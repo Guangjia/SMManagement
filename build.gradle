@@ -12,7 +12,7 @@ buildscript {
 //        _buildToolsVersion = "27.0.3"
 //        _minSdkVersion = 21
 //        _targetSdkVersion = 27
-        _kotlin_version = '1.2.30'
+        _kotlin_version = '1.1.51'
         _kotlin_mock_version = '1.5.0'
         _kotlinx_coroutines_version = '0.22.3'
         _supportLibraryVersion = "27.0.2"
@@ -49,7 +49,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0-alpha01'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$_kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

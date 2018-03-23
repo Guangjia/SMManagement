@@ -16,7 +16,7 @@ class SmModel {
     //消费1， 0 退款或者撤销
     var aType: String? = null
     //外币类型
-    var foreign: String? = null
+    var country: String? = null
     //外币金额
     var money: String? = null
     //人民币金额

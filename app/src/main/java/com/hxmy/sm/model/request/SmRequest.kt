@@ -1,9 +1,7 @@
 package com.hxmy.sm.model.request
 
-/**
- * @author a488606
- * @since 3/14/18
- */
+import java.util.*
+
 class SmRequest {
 
     var smList: List<SmModel> = ArrayList<SmModel>()

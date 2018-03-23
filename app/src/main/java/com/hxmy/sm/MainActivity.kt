@@ -10,14 +10,19 @@ import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import com.hxmy.sm.dao.MessageModel
 import com.hxmy.sm.model.request.FlightModel
 import com.hxmy.sm.model.request.SmModel
 import com.hxmy.sm.model.request.SmRequest
 import com.hxmy.sm.network.RetrofitHelper
+import com.hxmy.sm.utils.FlightUtil
+import com.hxmy.sm.utils.Util
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,15 +32,14 @@ class MainActivity : AppCompatActivity() {
     private var smsContentObserver: SMSContentObserver? = null
     private val MSG_INBOX = 1
     private val mHandler = object : Handler() {
-
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                MSG_INBOX -> setSmsCode()
+                MSG_INBOX -> fechSMData()
             }
         }
     }
 
-
+    var handler = Handler()
     override fun onDestroy() {
         // DO NOT CALL .dispose()
         mCompositeDisposable.clear()
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     var flightList = arrayListOf<FlightModel>()
     var smList = arrayListOf<SmModel>()
-    fun setSmsCode() {
+    fun fechSMData() {
 
         var cursor: Cursor? = null
         try {
@@ -73,44 +77,61 @@ class MainActivity : AppCompatActivity() {
                 var type = cursor.getString(cursor.getColumnIndex("type"));
 
 
-                var arr = arrayListOf("您尾号8765信用卡01月17日10:12消费JPY10710.00，折合人民币624.70元，现可用额度6391.68，询95511-2【平安银行】"
-                        , "您尾号8765信用卡01月11日12:50消费RMB975.00，现可用额度12690.22，询95511-2【平安银行】"
-                        , "您尾号8765信用卡01月10日16:51消费JPY38060.00，折合人民币2222.63元因可用额度不足失败，现可用额度为RMB-5967.74，询95511-2【平安银行】"
-                        , "您尾号8765信用卡03月25日19:47消费撤销RMB1266.00，现可用额度9200.20询95511-2【平安银行】"
-                        , "您尾号8765信用卡01月10日16:51消费JPY38060.00，折合人民币2222.63元因可用额度不足失败，现可用额度为RMB-5967.74，询95511-2【平安银行】"
-                        , "广发银行】您尾号0105广发卡04日20:30消费人民币7662.61元，现可用额度人民币3696.93元，调额就上发现精彩APP。回YYX010506223212申请12期分期或点 95508.com/C7b5NIJuZF5SYJg ，每期费率最高0.7%\t95"
-                        , "您尾号0105广发卡于17日17：29消费人民币1496.33元，交易商户:支付宝（中国）网络技术有限公司,剩余可用额度人民币6481.16元。申请调额点 95508.com/jYrXzLIJg 。回Y"
-                        , "您的订单331181319816存在392.00元退款，预计款项会在05月29日12:38前退回到您尾号为8765的深圳平安银行卡，请注意查收，如有疑问请致电客服10101234【去哪儿网】"
-                        , "您的信用卡5212于2018年03月13日成功退货USD61.37元【中国银行】"
-                        , "您尾号0777的卡片18年03月09日14:25消费欧元27.96元。本卡人民币可用额度-321.43元-中信信用卡"
-
-                        , "【民生银行】您民生信用卡*8140于3月13日21:40发生欧元境外预授权/消费171.34，具体入账币种及金额以账单为准，如有疑问请致电我行客服。登录全民生活APP，签到抽好礼"
-                        , "您尾号0105广发信用卡于04月11日的交易款项退回金额：人民币820.00元；点击 95508.com/01 下载发现精彩APP，交易明细查询不用愁。【广发银行】"
-                        , "由于不理想／恶劣天气情况影响原因,UO1252/HKG/2100/12月11日/KMG将更改为UO1252D/HKG/0900/12月12日/KMG。不便之处，敬请见谅。更改订单请浏览http://www.hkexpress.com/en-hk/need-help/contact。 【HK Express】\t"
-                        , "由於航務運作影響原因,UO707/REP/2045/2018年02月03日/HKG將更改為UO707/REP/2050/2018年02月03日/HKG。不便之處，敬請見諒。查詢請瀏覽http://www.hkexpress.com/en-hk/need-help/contact。 【HK Express】"
-                        , "【HK Express】由于不理想／恶劣天气情况影响原因,UO677/CJU/0730/01月11日/HKG将更改为UO677D/CJU/1825/01月12日/HKG。不便之处，敬请见谅。更改订单请浏览http://www.hkexpress.com/en-hk/need-help/contact。 \t"
-                        , "Due to operational issues,UO706/HKG/0805/07March2018/REP change to UO706/HKG/0805/07March2018/REP. We apologize for the inconvenience. For inquiry, please send us a message via chat at http://www.hkexpress.com/en-hk/need-help/contact. 【HK Express】\t"
-                        , "航班變動提示：HX232/2018年03月18日  從香港前往上海浦东，起飛時間已改為20:45，預計抵達時間23:25。不便之處，敬請見諒。查閱航班狀態: t.cn/RVYdPQL 。Your flight details have been changed: HX232/18 "
-                        , "SFO From Jetstar: Check in now"
-                )
-                var size: Int = arr.size - 1
-                for (i in 0..size) {
-                    body = arr.get(i)
-                    //接受到的短信
-//                    if (type == "1") {
+//                var arr = arrayListOf("您尾号8765信用卡01月17日10:12消费JPY10710.00，折合人民币624.70元，现可用额度6391.68，询95511-2【平安银行】"
+////                        , "您尾号8765信用卡01月11日12:50消费RMB975.00，现可用额度12690.22，询95511-2【平安银行】"
+////                        , "您尾号8765信用卡01月10日16:51消费JPY38060.00，折合人民币2222.63元因可用额度不足失败，现可用额度为RMB-5967.74，询95511-2【平安银行】"
+////                        , "您尾号8765信用卡03月25日19:47消费撤销RMB1266.00，现可用额度9200.20询95511-2【平安银行】"
+////                        , "您尾号8765信用卡01月10日16:51消费JPY38060.00，折合人民币2222.63元因可用额度不足失败，现可用额度为RMB-5967.74，询95511-2【平安银行】"
+////                        , "广发银行】您尾号0105广发卡04日20:30消费人民币7662.61元，现可用额度人民币3696.93元，调额就上发现精彩APP。回YYX010506223212申请12期分期或点 95508.com/C7b5NIJuZF5SYJg ，每期费率最高0.7%\t95"
+////                        , "您尾号0105广发卡于17日17：29消费人民币1496.33元，交易商户:支付宝（中国）网络技术有限公司,剩余可用额度人民币6481.16元。申请调额点 95508.com/jYrXzLIJg 。回Y"
+////                        , "您的订单331181319816存在392.00元退款，预计款项会在05月29日12:38前退回到您尾号为8765的深圳平安银行卡，请注意查收，如有疑问请致电客服10101234【去哪儿网】"
+////                        , "您的信用卡5212于2018年03月13日成功退货USD61.37元【中国银行】"
+////                        , "您尾号0777的卡片18年03月09日14:25消费欧元27.96元。本卡人民币可用额度-321.43元-中信信用卡"
+//
+//                        , "【民生银行】您民生信用卡*8140于3月13日21:40发生欧元境外预授权/消费171.34，具体入账币种及金额以账单为准，如有疑问请致电我行客服。登录全民生活APP，签到抽好礼"
+////                        , "您尾号0105广发信用卡于04月11日的交易款项退回金额：人民币820.00元；点击 95508.com/01 下载发现精彩APP，交易明细查询不用愁。【广发银行】"
+//                        , "由于不理想／恶劣天气情况影响原因,UO1252/HKG/2100/12月11日/KMG将更改为UO1252D/HKG/0900/12月12日/KMG。不便之处，敬请见谅。更改订单请浏览http://www.hkexpress.com/en-hk/need-help/contact。 【HK Express】\t"
+//                        , "由於航務運作影響原因,UO707/REP/2045/2018年02月03日/HKG將更改為UO707/REP/2050/2018年02月03日/HKG。不便之處，敬請見諒。查詢請瀏覽http://www.hkexpress.com/en-hk/need-help/contact。 【HK Express】"
+//                        , "【HK Express】由于不理想／恶劣天气情况影响原因,UO677/CJU/0730/01月11日/HKG将更改为UO677D/CJU/1825/01月12日/HKG。不便之处，敬请见谅。更改订单请浏览http://www.hkexpress.com/en-hk/need-help/contact。 \t"
+//                        , "Due to operational issues,UO706/HKG/0805/07March2018/REP change to UO706/HKG/0805/07March2018/REP. We apologize for the inconvenience. For inquiry, please send us a message via chat at http://www.hkexpress.com/en-hk/need-help/contact. 【HK Express】\t"
+//                        , "航班變動提示：HX232/2018年03月18日  從香港前往上海浦东，起飛時間已改為20:45，預計抵達時間23:25。不便之處，敬請見諒。查閱航班狀態: t.cn/RVYdPQL 。Your flight details have been changed: HX232/18 "
+//                        , "SFO From Jetstar: Check in now"
+//                )
+//                var size: Int = arr.size - 1
+//                for (i in 0..size) {
+//                body = arr.get(i)
+                //接受到的短信
+                if (type == "1") {
                     //Flight 判断
-                    var model = FlightUtil(body, address, date).convert()
-                    var calendar = Calendar.getInstance();
-                    calendar.timeInMillis = date?.toLong()!!
-                    var sf = SimpleDateFormat("yyyy-MM-dd")
-                    model?.let { flightList.add(it) } ?: handleInfo(body, address, sf.format(calendar.time))
 
-//                    }
+                    //判断是否此条信息已经被添加
+                    var msgModel = (application as MyApplication).db?.dao()?.findByMessage(body, date)     //..getInstance(this@MainActivity).dao().findByMessage(body, date)
+                    if (msgModel == null || msgModel.isEmpty()) {
+                        var model = FlightUtil(body, address, date).convert()
+                        var calendar = Calendar.getInstance();
+                        calendar.timeInMillis = date?.toLong()!!
+                        var sf = SimpleDateFormat("yyyy-MM-dd")
+                        model?.let {
+                            if (!TextUtils.isEmpty(it.message)) {
+                                flightList.add(it)
+                                //保存到数据库
+                                var messageModel = MessageModel()
+                                messageModel.message = body
+                                messageModel.time = date
+                                (application as MyApplication).db?.dao()?.insert(messageModel)
+                            }
+                        } ?: handleInfo(body, address, sf.format(calendar.time), date)
 
+                    }
 
                 }
             }
-            submitSm();
+
+            handler.postDelayed({
+                submitSm();
+            }, 10)
+
+
         } catch (e: Exception) {
             Log.e("error", "" + e.message)
 //            e.printStackTrace();
@@ -119,35 +140,53 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleInfo(body: String?, address: String?, date: String?) {
-        var model: SmModel? = Util().filter(body!!, address!!, date!!) as? SmModel
-//        var model: SmModel? = InfoUtil(body, address, date).convert() as? SmModel
-        model?.let { if (!TextUtils.isEmpty(it.message)) smList.add(it) }
+    private fun handleInfo(body: String?, address: String?, date: String?, originDate: String?) {
+        var model: SmModel? = Util().filter(body!!, address!!, date!!)
+        model?.let {
+            if (!TextUtils.isEmpty(it.message)) {
+                smList.add(it)
+                //保存到数据库
+                var messageModel = MessageModel()
+                messageModel.message = body
+                messageModel.time = originDate
+                (application as MyApplication).db?.dao()?.insert(messageModel)
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         smsContentObserver = SMSContentObserver(this@MainActivity, mHandler)
-
         supportActionBar?.hide()
+        record.setOnClickListener {
+
+            handler.post {
+                fechSMData()
+            }
+
+            txtView.visibility = View.VISIBLE
+            if (smsContentObserver != null) {
+
+                contentResolver.registerContentObserver(
+                        Uri.parse("content://sms/"), true, smsContentObserver)// 注册监听短信数据库的变化
+            }
+        }
+
+        stop.setOnClickListener {
+            txtView.visibility = View.GONE
+            if (smsContentObserver != null) {
+                contentResolver.unregisterContentObserver(smsContentObserver)// 取消监听短信数据库的变化
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        if (smsContentObserver != null) {
-            contentResolver.registerContentObserver(
-                    Uri.parse("content://sms/"), true, smsContentObserver)// 注册监听短信数据库的变化
-        }
-        setSmsCode();
-//        submitSm();
     }
 
     override fun onPause() {
         super.onPause()
-        if (smsContentObserver != null) {
-            contentResolver.unregisterContentObserver(smsContentObserver)// 取消监听短信数据库的变化
-        }
 
     }
 
@@ -157,12 +196,22 @@ class MainActivity : AppCompatActivity() {
         val request = SmRequest()
         request.smList = smList
         request.flightList = flightList
-        mCompositeDisposable.add(smService.submitSm(request)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ t ->
-                    Toast.makeText(this@MainActivity, "上传成功", Toast.LENGTH_LONG).show()
-                }, { e -> Toast.makeText(this@MainActivity, "上传失败", Toast.LENGTH_LONG).show() }))
+        if (smList.isNotEmpty() || flightList.isNotEmpty()) {
+            mCompositeDisposable.add(smService.submitSm(request)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ t ->
+                        if (t.code == "100") {
+                            Toast.makeText(this@MainActivity, "上传成功", Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(this@MainActivity, "上传失败", Toast.LENGTH_LONG).show()
+                        }
+
+                    }, { e -> Toast.makeText(this@MainActivity, "上传失败", Toast.LENGTH_LONG).show() }))
+        }
+
+        smList.clear()
+        flightList.clear()
     }
 }
 

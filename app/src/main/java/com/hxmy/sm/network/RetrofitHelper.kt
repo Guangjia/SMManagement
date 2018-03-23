@@ -9,11 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 
 
-/**
- * @author a488606
- * @since 3/14/18
- */
-
 class RetrofitHelper() {
 
 
@@ -49,7 +44,7 @@ class RetrofitHelper() {
 
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("http://api.geonames.org/")
+                .baseUrl("http://60.205.105.155:9090/message/")
                 .addConverterFactory(JsonAndXmlConverters.QualifiedTypeConverterFactory(
                         GsonConverterFactory.create(),
                         SimpleXmlConverterFactory.create()))

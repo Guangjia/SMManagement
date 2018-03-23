@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/adapters-1.3.1.aar/b521df86cbd473ee3a8132ffc0178408/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="68956f5ba1517b7a3d513ba540548e257741cbae">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/d67fbf71aa86552b1758eb69f57cdc92/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8d24e1c59cbee887714f11121366282a2fe00251">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/620ac214d4b0021b1e55b0b758bc8464/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/a5916f8d8c7b61113a922e71dc6a89d2/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7cc5473b9cf4ea159a263cd477fb3ecb2987b96">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-v13-27.0.2.aar/18a6afea8292a41ae778f88499f5c790/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e66b741299db855d094ffafb2b783258f24fc010">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/f282e2064549efb83835e5a53ff6f064/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="caa03787689212c10939f308a55a8dc8a3333ed2">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/db-framework-1.0.0.aar/92909988e1afb6c346b8c49b5534b22a/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e44c59a2b380c1c304413901f8dd34245b64ab40">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/db-1.0.0.aar/5d3b41f4e07949db64ab34bceab81880/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="73b7c0cc2de04ff7eb3979d7f48f2a667fce88ca">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/cardview-v7-27.0.2.aar/33718d22ec9639c5098c39051e54a8a5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="14bfdbf5594d4d7c320de20831849050788ab1e3">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/transition-27.0.2.aar/995f58eb06ffe1ca7fc2ad3856578c8f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a5fa2e3704f51b30b7b47e12a3a2909728799583">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/3412183d6ee705ff88a97d158c317cbb/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="25c8cb628374f9a2d59ff9e1172753751e9a9f84">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/butterknife-8.8.1.aar/d094c543469e4cb1bf0f4474772e0869/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6a2bcb61342d09fe9acf55c9daf63961c8866cc0">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jre7/1.1.51/8b5933578dc55f32cfc1a25f1db6371e4161fb8f/kotlin-stdlib-jre7-1.1.51.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8b5933578dc55f32cfc1a25f1db6371e4161fb8f">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.1.aar/8301f719a4c2e61cea444929276db17b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4119ea97a7191ff9b8f33b534ea220448f62f491">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/41.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.0.2.aar/778d1ae660033d122b230a97d6a61e01/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9296d6f092fcdba4fafb6ac26546a39babdab46a">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/d36868eac99834c57b5ff9119dabb774/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="04cd0cacbedcb338f64665b88bad64d145325fbd">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/2f8d054fb25df305fecf0c59eefe2bc1/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="618f75fe11febf263e3234c7da7dc892232a5608">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/design-27.0.2.aar/39c34a4b16be3cbd1b63a7bdcab2221a/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="031cc16b7b6e77b3c050134ecab9fa5c2640a069">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/10b693d6485953a83082ebcf06d9df98/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ac2ce6027755bcf49442e70597bec0feb9064f68">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/fc2a19fe0365b7f9a01eed6833ce1d7b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fe3916317a699975bcce0cba2d13fd2d8cf88922">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.51/e34fe80c9714240525f665113dd3749415515655/kotlin-stdlib-1.1.51.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e34fe80c9714240525f665113dd3749415515655">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/library-1.3.1.aar/f10c1419e4bb84b5aa07b7412942b03f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7f2f348b830f292429db987f74ba3e67c6752322">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/0bd1e6a1083a71ed4849204446f8dc15/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b432e82447a3af781e927b9ba0bbb9fe2a496d4a">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/1a41de4f88557867b8c4792c51892051/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ed6560f31a6a40b5965f5879d8f2eab1f68def05">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/3162e8b2e559e3fbb2deddb8ee1e7cbf/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bcd0bcdef85b31a656af76e39c0c95ce70800772">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/modules-2/files-2.1/android.arch.persistence.room/common/1.0.0/1cbd3ddc566125293b13af5c0a65bc015476e83c/common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1cbd3ddc566125293b13af5c0a65bc015476e83c">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/myron/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/ec4781e18fd1bfa761ba0e11acc7e186/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7acfe82f9818960690816133001218c52e840175">
+        <dex dex="/Users/myron/Dev/bitbucket/smmanager/app/build/intermediates/transforms/preDex/release/31.jar" />
+    </item>
+
+</items>
