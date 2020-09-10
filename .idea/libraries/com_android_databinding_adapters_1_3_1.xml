@@ -5,10 +5,10 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/adapters-1.3.1.aar/d3aea623f99b898e0342888fb03170ec/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../tools/android-sdks/extras/android/m2repository/com/android/databinding/adapters/1.3.1/adapters-1.3.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../tools/android-sdks/extras/android/m2repository/com/android/databinding/adapters/1.3.1/adapters-1.3.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../tools/android-sdks/extras/android/m2repository/com/android/databinding/adapters/1.3.1/adapters-1.3.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../tools/android-sdks/extras/android/m2repository/com/android/databinding/adapters/1.3.1/adapters-1.3.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -1,8 +1,10 @@
 package com.hxmy.sm
 
 import android.app.Application
-import com.hxmy.sm.dao.AppDatabase
 import android.arch.persistence.room.Room
+import android.content.Context
+import android.content.SharedPreferences
+import com.hxmy.sm.dao.AppDatabase
 
 
 /**
@@ -16,5 +18,13 @@ class MyApplication : Application() {
         super.onCreate()
         db = Room.databaseBuilder(applicationContext,
                 AppDatabase::class.java, "database-myapp").allowMainThreadQueries().build()
+
+        sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE)
+    }
+
+    var sharedPreferences: SharedPreferences? = null;
+
+    fun getSharePReference(): SharedPreferences? {
+        return sharedPreferences;
     }
 }

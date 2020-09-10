@@ -1,21 +1,21 @@
 package com.hxmy.sm
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.hxmy.sm.dao.MessageModel
-import com.hxmy.sm.model.request.FlightModel
-import com.hxmy.sm.model.request.SmModel
-import com.hxmy.sm.model.request.SmRequest
+import com.hxmy.sm.model.request.*
 import com.hxmy.sm.network.RetrofitHelper
 import com.hxmy.sm.utils.FlightUtil
 import com.hxmy.sm.utils.Util
@@ -25,6 +25,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     private val mCompositeDisposable = CompositeDisposable()
@@ -39,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     var handler = Handler()
     override fun onDestroy() {
-        // DO NOT CALL .dispose()
         mCompositeDisposable.clear()
         super.onDestroy()
     }
@@ -61,9 +62,13 @@ class MainActivity : AppCompatActivity() {
 
     var flightList = arrayListOf<FlightModel>()
     var smList = arrayListOf<SmModel>()
+    var sm95516List = arrayListOf<Sm95516Model>()
+    var smAllList = arrayListOf<SmAllModel>()
     fun fechSMData() {
 
+        var count: Int = 0
         var cursor: Cursor? = null
+        var bodyMsg: CharSequence? = null
         try {
             cursor = contentResolver.query(
                     Uri.parse("content://sms"),
@@ -76,53 +81,81 @@ class MainActivity : AppCompatActivity() {
                 var read = cursor.getString(cursor.getColumnIndex("read"));
                 var type = cursor.getString(cursor.getColumnIndex("type"));
 
+                //读取最新的20条数据。（实际一两条足够。这个是为了新接手的短信）
+                count++
+                if(count > 20)
+                {
+                    break
+                }
 
-//                var arr = arrayListOf("您尾号8765信用卡01月17日10:12消费JPY10710.00，折合人民币624.70元，现可用额度6391.68，询95511-2【平安银行】"
-////                        , "您尾号8765信用卡01月11日12:50消费RMB975.00，现可用额度12690.22，询95511-2【平安银行】"
-////                        , "您尾号8765信用卡01月10日16:51消费JPY38060.00，折合人民币2222.63元因可用额度不足失败，现可用额度为RMB-5967.74，询95511-2【平安银行】"
-////                        , "您尾号8765信用卡03月25日19:47消费撤销RMB1266.00，现可用额度9200.20询95511-2【平安银行】"
-////                        , "您尾号8765信用卡01月10日16:51消费JPY38060.00，折合人民币2222.63元因可用额度不足失败，现可用额度为RMB-5967.74，询95511-2【平安银行】"
-////                        , "广发银行】您尾号0105广发卡04日20:30消费人民币7662.61元，现可用额度人民币3696.93元，调额就上发现精彩APP。回YYX010506223212申请12期分期或点 95508.com/C7b5NIJuZF5SYJg ，每期费率最高0.7%\t95"
-////                        , "您尾号0105广发卡于17日17：29消费人民币1496.33元，交易商户:支付宝（中国）网络技术有限公司,剩余可用额度人民币6481.16元。申请调额点 95508.com/jYrXzLIJg 。回Y"
-////                        , "您的订单331181319816存在392.00元退款，预计款项会在05月29日12:38前退回到您尾号为8765的深圳平安银行卡，请注意查收，如有疑问请致电客服10101234【去哪儿网】"
-////                        , "您的信用卡5212于2018年03月13日成功退货USD61.37元【中国银行】"
-////                        , "您尾号0777的卡片18年03月09日14:25消费欧元27.96元。本卡人民币可用额度-321.43元-中信信用卡"
-//
-//                        , "【民生银行】您民生信用卡*8140于3月13日21:40发生欧元境外预授权/消费171.34，具体入账币种及金额以账单为准，如有疑问请致电我行客服。登录全民生活APP，签到抽好礼"
-////                        , "您尾号0105广发信用卡于04月11日的交易款项退回金额：人民币820.00元；点击 95508.com/01 下载发现精彩APP，交易明细查询不用愁。【广发银行】"
-//                        , "由于不理想／恶劣天气情况影响原因,UO1252/HKG/2100/12月11日/KMG将更改为UO1252D/HKG/0900/12月12日/KMG。不便之处，敬请见谅。更改订单请浏览http://www.hkexpress.com/en-hk/need-help/contact。 【HK Express】\t"
-//                        , "由於航務運作影響原因,UO707/REP/2045/2018年02月03日/HKG將更改為UO707/REP/2050/2018年02月03日/HKG。不便之處，敬請見諒。查詢請瀏覽http://www.hkexpress.com/en-hk/need-help/contact。 【HK Express】"
-//                        , "【HK Express】由于不理想／恶劣天气情况影响原因,UO677/CJU/0730/01月11日/HKG将更改为UO677D/CJU/1825/01月12日/HKG。不便之处，敬请见谅。更改订单请浏览http://www.hkexpress.com/en-hk/need-help/contact。 \t"
-//                        , "Due to operational issues,UO706/HKG/0805/07March2018/REP change to UO706/HKG/0805/07March2018/REP. We apologize for the inconvenience. For inquiry, please send us a message via chat at http://www.hkexpress.com/en-hk/need-help/contact. 【HK Express】\t"
-//                        , "航班變動提示：HX232/2018年03月18日  從香港前往上海浦东，起飛時間已改為20:45，預計抵達時間23:25。不便之處，敬請見諒。查閱航班狀態: t.cn/RVYdPQL 。Your flight details have been changed: HX232/18 "
-//                        , "SFO From Jetstar: Check in now"
-//                )
-//                var size: Int = arr.size - 1
-//                for (i in 0..size) {
-//                body = arr.get(i)
+
+                bodyMsg = body
                 //接受到的短信
                 if (type == "1") {
+
+//                    body = "你尾号5555的招商信用卡在27日15:32网上交易人民币1，233.18元 [德国银行]"
+//                    address = "18640949502"
+//                    date = System.currentTimeMillis().toString()
                     //Flight 判断
 
-                    //判断是否此条信息已经被添加
-                    var msgModel = (application as MyApplication).db?.dao()?.findByMessage(body, date)     //..getInstance(this@MainActivity).dao().findByMessage(body, date)
-                    if (msgModel == null || msgModel.isEmpty()) {
-                        var model = FlightUtil(body, address, date).convert()
-                        var calendar = Calendar.getInstance();
-                        calendar.timeInMillis = date?.toLong()!!
-                        var sf = SimpleDateFormat("yyyy-MM-dd")
-                        model?.let {
-                            if (!TextUtils.isEmpty(it.message)) {
-                                flightList.add(it)
-                                //保存到数据库
-                                var messageModel = MessageModel()
-                                messageModel.message = body
-                                messageModel.time = date
-                                (application as MyApplication).db?.dao()?.insert(messageModel)
-                            }
-                        } ?: handleInfo(body, address, sf.format(calendar.time), date)
+//                    var allMsgModel = (application as MyApplication).db?.allDao()?.findByMessage(body, date)
+//                    if (allMsgModel == null || allMsgModel.isEmpty()) {
 
+                    //所有信息保存
+                    var allmodel = SmAllModel()
+                    allmodel.message = body
+                    var calendarAll = Calendar.getInstance();
+                    calendarAll.timeInMillis = (date?.toLong()!!)
+                    var sf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    allmodel.date = sf.format(calendarAll.time)
+                    allmodel.telephone = address
+                    smAllList.add(allmodel)
+
+//                    //保存到数据库
+//                    var msgAll = MessageAllModel()
+//                    msgAll.message = body
+//                    msgAll.time = date
+//                    (application as MyApplication).db?.allDao()?.insert(msgAll)
+//                    }
+
+//                    var msg95516Model = (application as MyApplication).db?.msg95516dao()?.findByMessage(body, date)
+//                    if (msg95516Model == null || msg95516Model.isEmpty()) {
+                    if (!address.isEmpty() && address.contains("95516")) {
+                        var sm95516 = Sm95516Model()
+                        sm95516.message = body
+                        var calendar95516 = Calendar.getInstance();
+                        calendar95516.timeInMillis = (date?.toLong()!!)
+                        var sf95516 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                        sm95516.date = sf95516.format(calendar95516.time)
+                        sm95516.telephone = address
+                        sm95516List.add(sm95516)
+
+//                        //保存到数据库
+//                        var message95516Model = Message95516Model()
+//                        message95516Model.message = body
+//                        message95516Model.time = date
+//                        (application as MyApplication).db?.msg95516dao()?.insert(message95516Model)
                     }
+//                    }
+                    //判断是否此条信息已经被添加
+//                    var msgModel = (application as MyApplication).db?.dao()?.findByMessage(body, date)     //..getInstance(this@MainActivity).dao().findByMessage(body, date)
+//                    if (msgModel == null || msgModel.isEmpty()) {
+                    var model = FlightUtil(body, address, date).convert()
+                    var calendarFlight = Calendar.getInstance();
+                    calendarFlight.timeInMillis = (date?.toLong()!!)
+                    var sfFlight = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    model?.let {
+                        if (!TextUtils.isEmpty(it.message)) {
+                            flightList.add(it)
+//                            //保存到数据库
+//                            var messageModel = MessageModel()
+//                            messageModel.message = body
+//                            messageModel.time = date
+//                            (application as MyApplication).db?.dao()?.insert(messageModel)
+                        }
+                    } ?: handleInfo(body, address, sfFlight.format(calendarFlight.time), date)
+
+//                    }
 
                 }
             }
@@ -133,8 +166,7 @@ class MainActivity : AppCompatActivity() {
 
 
         } catch (e: Exception) {
-            Log.e("error", "" + e.message)
-//            e.printStackTrace();
+            Toast.makeText(this@MainActivity, "这到底是咋了，怎么又失败了${e.message}", Toast.LENGTH_LONG).show()
         } finally {
             cursor?.close();
         }
@@ -145,49 +177,64 @@ class MainActivity : AppCompatActivity() {
         model?.let {
             if (!TextUtils.isEmpty(it.message)) {
                 smList.add(it)
-                //保存到数据库
-                var messageModel = MessageModel()
-                messageModel.message = body
-                messageModel.time = originDate
-                (application as MyApplication).db?.dao()?.insert(messageModel)
+//                //保存到数据库
+//                var messageModel = MessageModel()
+//                messageModel.message = body
+//                messageModel.time = originDate
+//                (application as MyApplication).db?.dao()?.insert(messageModel)
             }
         }
     }
+
+    // JobService，执行系统任务
+    private var mJobManager: JobSchedulerManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mJobManager = JobSchedulerManager.getJobSchedulerInstance(this)
+        mJobManager?.startJobScheduler()
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this@MainActivity,
+                        Manifest.permission.READ_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@MainActivity,
+                    arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS),
+                    11)
+        } else {
+            // Permission has already been granted
+        }
+
+
         smsContentObserver = SMSContentObserver(this@MainActivity, mHandler)
         supportActionBar?.hide()
-        record.setOnClickListener {
 
-            handler.post {
-                fechSMData()
-            }
+//        //清空集合数据
+//        clear()
+//
+//        handler.post {
+//            fechSMData()
+//        }
 
-            txtView.visibility = View.VISIBLE
-            if (smsContentObserver != null) {
+        txtView.visibility = View.VISIBLE
 
-                contentResolver.registerContentObserver(
-                        Uri.parse("content://sms/"), true, smsContentObserver)// 注册监听短信数据库的变化
-            }
+
+        if (smsContentObserver != null) {
+
+            contentResolver.registerContentObserver(
+                    Uri.parse("content://sms/"), true, smsContentObserver)// 注册监听短信数据库的变化
         }
-
-        stop.setOnClickListener {
-            txtView.visibility = View.GONE
-            if (smsContentObserver != null) {
-                contentResolver.unregisterContentObserver(smsContentObserver)// 取消监听短信数据库的变化
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-
+//        record.setOnClickListener {
+//
+//        }
+//
+//        stop.setOnClickListener {
+//            txtView.visibility = View.GONE
+//            if (smsContentObserver != null) {
+//                contentResolver.unregisterContentObserver(smsContentObserver)// 取消监听短信数据库的变化
+//            }
+//        }
     }
 
     private fun submitSm() {
@@ -196,7 +243,9 @@ class MainActivity : AppCompatActivity() {
         val request = SmRequest()
         request.smList = smList
         request.flightList = flightList
-        if (smList.isNotEmpty() || flightList.isNotEmpty()) {
+        request.sm95516List = sm95516List
+        request.smAllList = smAllList
+        if (smList.isNotEmpty() || flightList.isNotEmpty() || sm95516List.isNotEmpty() || smAllList.isNotEmpty()) {
             mCompositeDisposable.add(smService.submitSm(request)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -207,13 +256,22 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(this@MainActivity, "上传失败", Toast.LENGTH_LONG).show()
                         }
 
-                    }, { e -> Toast.makeText(this@MainActivity, "上传失败", Toast.LENGTH_LONG).show() }))
+                    }, { e ->
+                        Toast.makeText(this@MainActivity, "上传失败,请重新上传${e.message}", Toast.LENGTH_LONG).show()
+                    }))
         }
 
+
+    }
+
+    private fun clear() {
         smList.clear()
         flightList.clear()
+        sm95516List.clear()
+        smAllList.clear()
     }
 }
+
 
 class SMSContentObserver(private val mContext: Context,
                          private val mHandler: Handler // 更新UI

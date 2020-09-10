@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 class RetrofitHelper() {
@@ -23,7 +24,7 @@ class RetrofitHelper() {
     }
 
     private fun createOkHttpClient(): OkHttpClient {
-        val httpClient = OkHttpClient.Builder()
+        val httpClient = OkHttpClient.Builder().readTimeout(60,TimeUnit.SECONDS).writeTimeout(60,TimeUnit.SECONDS)
         httpClient.addInterceptor { chain ->
             val original = chain.request()
             val originalHttpUrl = original.url()

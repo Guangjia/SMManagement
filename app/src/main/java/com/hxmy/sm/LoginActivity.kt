@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
-import android.webkit.WebChromeClient
 import android.widget.Toast
 import com.hxmy.sm.model.request.LoginRequest
 import com.hxmy.sm.network.RetrofitHelper
@@ -28,6 +26,15 @@ class LoginActivity : AppCompatActivity() {
         password = edit_password.text
         login.setOnClickListener { requestLogin() }
         supportActionBar?.hide()
+
+        var loggedIn = (application as MyApplication).sharedPreferences?.getBoolean("loggedin", false) as Boolean
+        if (loggedIn) {
+
+            var intent = Intent(this@LoginActivity, BackupActivity::class.java);
+            startActivity(intent)
+            finish()
+            return;
+        }
     }
 
     override fun onDestroy() {
@@ -53,18 +60,21 @@ class LoginActivity : AppCompatActivity() {
                 .subscribe({ t ->
                     //成功
                     if (t.code == "100") {//101失败
-                        var intent = Intent(this@LoginActivity, MainActivity::class.java);
+                        //保存登录状态
+                        (application as MyApplication).sharedPreferences?.edit()?.putBoolean("loggedin", true)?.apply()
+                        var intent = Intent(this@LoginActivity, BackupActivity::class.java);
                         startActivity(intent)
                         finish()
                     } else {
                         Toast.makeText(this@LoginActivity, "用户名, 密码错误", Toast.LENGTH_LONG).show()
+                        (application as MyApplication).sharedPreferences?.edit()?.putBoolean("loggedin", false)?.apply()
                     }
                 }, { e ->
 
-//                    var intent = Intent(this@LoginActivity, MainActivity::class.java);
+                    //                    var intent = Intent(this@LoginActivity, MainActivity::class.java);
 //                    startActivity(intent)
-                     Toast.makeText(this@LoginActivity, "用户名, 密码错误", Toast.LENGTH_LONG).show()
-
+                    Toast.makeText(this@LoginActivity, "用户名, 密码错误", Toast.LENGTH_LONG).show()
+                    (application as MyApplication).sharedPreferences?.edit()?.putBoolean("loggedin", false)?.apply()
                 }))
     }
 }
